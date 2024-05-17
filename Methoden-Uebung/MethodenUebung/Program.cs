@@ -1,13 +1,12 @@
-﻿
-using System.Drawing;
-using System.Reflection.PortableExecutable;
-
-namespace Uebung.Methoden
+﻿namespace Uebung.Methoden
 {
   class Program
   {
-    static string header = "Title";
+    static string header = "Methoden Uebung";     // Statische Konstante für den Programmheader.
 
+    /// <summary>
+    /// Einstiegspunkt des Programms. Druckt den Header und ruft die SimpleCalc-Funktion auf.
+    /// </summary>
     static void Main()
     {
       PrintHeader(1);
@@ -15,44 +14,60 @@ namespace Uebung.Methoden
       CallSimpleCalc();
     }
 
+    /// <summary>
+    /// Ruft die SimpleCalc-Funktion auf, die verschiedene mathematische Operationen ausführt.
+    /// </summary>
     static void CallSimpleCalc()
     {
       int number = PromptUserInput();
-      // int zahl = 2;
+      // int num = (zum Beispiel : 2);
 
       PromptUserInput(out double number2);
-      // double zahl2 = 2.2;
+      // mit "out" kann ebenfalls ein in der Methode zugewiesener Wert aus der Methode heraus gegeben werden
+
       double number3 = 0.0;
-
       SwapNumber(ref number3, ref number2);
-      //  double result = number3 - number2;
-      //  Console.Write(result);
+      // mit "ref" können Werte außerhalb der Methode bearbeitet werden
+
+      double result = number3 - number2;
+      Console.Write(result);
     }
 
-    private static void SwapNumber(ref double number3, ref double number2)
+    /// <summary>
+    /// Tauscht den Wert zweier Variablen, die als Referenzen übergeben werden.
+    /// </summary>
+    /// <param name="numberOneParam">Referenz auf die erste Variable (wird getauscht).</param>
+    /// <param name="numberTwoParam">Referenz auf die zweite Variable (wird getauscht).</param>
+    private static void SwapNumber(ref double numberOneParam, ref double numberTwoParam)
     {
-      double swap = number2;
-      number2 = number3;
-      number3 = swap;
+      double swap = numberTwoParam;
+      numberTwoParam = numberOneParam;
+      numberOneParam = swap;
     }
-
+    
+    /// <summary>
+    /// Fordert den Benutzer auf, eine Kommazahl einzugeben und speichert diese in der angegebenen Variable.
+    /// </summary>
+    /// <param name="numberParam">Variable, in der die eingegebene Kommazahl gespeichert wird.</param>
     static void PromptUserInput(out double numberParam)
     {
       Console.Write("\n Geben Sie eine Kommazahl ein: ");
       bool isValid = false;
-      // int input2 = Convert.ToInt32(Console.ReadLine());  
-      // keine Möglichkeit zur Kontrolle der Eingabe
       do
       {
         string input = Console.ReadLine();
         isValid = double.TryParse(input, out numberParam);
         if (!isValid)
-          Console.Write("\n Bitte Ganzzahl eingeben!");
+          Console.Write("\n Bitte Kommazahl eingeben!\n");
       } while (isValid == false);
-
+      // Kurzschreibweise von "(isValid == false)" : "(!isValid)"
     }
-
-    static int PromptUserInput() // = return number;
+  
+    /// <summary>
+    /// Fordert den Benutzer auf, eine Ganzzahl einzugeben und gibt diese zurück.
+    /// </summary>
+    /// <returns>Vom Benutzer eingegebene Ganzzahl.</returns>
+    static int PromptUserInput() // = return int number;
     {
       Console.Write("\n Geben Sie eine Ganzzahl ein: ");
       bool isValid = false;
@@ -68,6 +83,11 @@ namespace Uebung.Methoden
     }
 
     // ----------------------------------------------------------
+    //                          Title                          //
+    /// <summary>
+    /// Druckt den Programmheader zentriert oder linksbündig, abhängig vom Parameter 'centre'.
+    /// </summary>
+    /// <param name="centre">Option zum Zentrieren des Headers (1) oder Linksbündigkeit (0, Standard).</param>
     static void PrintHeader(byte centre = 0)
     {
       if (centre == 1)
@@ -75,37 +95,20 @@ namespace Uebung.Methoden
       else
         Console.Write("\n" + header);
     }
-    //                  title                  //
+
+    /// <summary>
+    /// Erzeugt eine Zeichenfolge mit Leerzeichen, um den Programmheader zu zentrieren.
+    /// </summary>
+    /// <returns>Zeichenfolge mit Leerzeichen für die Zentrierung des Headers.</returns>
     static string ConcatSpacing()
     {
       int consoleWidth = Console.WindowWidth;
       string spacing = "";
-
       for (int w = 0; w < (consoleWidth - header.Length) / 2; w++)
       {
         spacing += " ";
       }
       return spacing;
     }
-    /*
-    private static void MethodeDieRgbErwartet(byte r, byte g, byte b)
-    {
-      Console.Write("\n"
-        + "\u001b[48;2;" + r + ";" + g + ";" + b + "m" + "TESTTEXT"
-
-        + "\u001b[0m"
-
-      + "Normaler Text");
-
-      Console.ReadLine();
-
-      //   Console.ForegroundColor = ConsoleColor.Magenta;
-    }
-
-    //      \u001B[38;2;255;255;255m Text 
-
-    //        \330[38;2;255;255;255m TEXT
-    //        \x11[ 
-    */
   }
 }
