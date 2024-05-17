@@ -5,3 +5,6 @@
 /.vs
 /Methoden-Uebung/MethodenUebung/.vs/MethodenUebung
 /Methoden-Uebung/MethodenUebung/obj
+/Methoden-Uebung/MethodenUebung/bin/Debug/net8.0
+/Methoden-Uebung/MethodenUebung/.vs/ProjectEvaluation
+*.zip
